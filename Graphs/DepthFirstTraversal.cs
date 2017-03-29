@@ -10,12 +10,6 @@ namespace Graphs
     {
         private Dictionary<Edge, bool> exploredEdges = new Dictionary<Edge,bool>();
         private List<Node> exploredNodes = new List<Node>();
-        private Graph graph;
-
-        public DepthFirstTraversal(Graph graph)
-        {
-            this.graph = graph;
-        }
 
         public List<Node> Traverse(Node root)
         {

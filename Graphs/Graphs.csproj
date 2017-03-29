@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BreadthFirstTraversal.cs" />
     <Compile Include="DepthFirstTraversal.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="ISearchAlgorithm.cs" />
     <Compile Include="ITraversalAlgorithm.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="PathExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

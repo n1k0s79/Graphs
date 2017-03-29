@@ -1,4 +1,5 @@
-Graphs.Tests/bin/Debug/Graphs.dll
-Graphs.Tests/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+Graphs/bin
+Graphs/obj
+Graphs.Tests/bin
+Graphs.Tests/obj
 Graphs.v12.suo
-*.cache

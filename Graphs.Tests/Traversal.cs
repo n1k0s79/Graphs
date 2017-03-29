@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Graphs.Tests
@@ -9,11 +7,30 @@ namespace Graphs.Tests
     public class Traversal
     {
         [TestMethod]
-        public void DepthFirstSearch()
+        public void DepthFirstTraversalOfSimpleCyclicalGraph()
         {
-            var generator = new Graphs.Generator();
-            Graph g = generator.GetSimple();
-            g.Traverse(g.Nodes[0], new Graphs.DepthFirstTraversal(g));
+            var generator = new Generator();
+            Graph g = generator.GetSimpleCyclical();
+            List<Node> path = g.Traverse(g.Nodes[0], new DepthFirstTraversal());
+            Assert.AreEqual("ABECDFGH", path.AsString());
+        }
+
+        [TestMethod]
+        public void BreadthFirstTraversalOfSimpleTree()
+        {
+            var generator = new Generator();
+            Graph g = generator.GetSimpleBinaryTree();
+            List<Node> path = g.Traverse(g.Nodes[0], new BreadthFirstTraversal());
+            Assert.AreEqual("ABECDFGH", path.AsString());
+        }
+
+        [TestMethod]
+        public void DepthFirstTraversalOfSimpleTree()
+        {
+            var generator = new Generator();
+            Graph g = generator.GetSimpleBinaryTree();
+            List<Node> path = g.Traverse(g.Nodes[0], new DepthFirstTraversal());
+            Assert.AreEqual("ABCDEFGH", path.AsString());
         }
     }
 }

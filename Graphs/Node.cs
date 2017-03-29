@@ -37,5 +37,10 @@ namespace Graphs
         {
             return this.AdjacentEdges.Any(x => x.Other(this).Equals(other));
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

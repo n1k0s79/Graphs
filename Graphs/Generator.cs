@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Graphs
 {
@@ -50,7 +46,89 @@ namespace Graphs
             }
         }
 
-        public Graph GetSimple()
+        private void Connect(Node a, params Node[] other)
+        {
+            foreach (var o in other)
+            {
+                if (a.IsConnectedTo(o)) throw new Exception(string.Format("Nodes {0} and {1} already connected!", a, o));
+                a.ConnectTo(o);
+            }
+        }
+
+        #region Simple graphs
+
+        public Graph GetSimpleBinaryTree()
+        {
+            //           A  
+            //         /   \ 
+            //        B     E
+            //       /\    / \
+            //      C  D  F   G
+            //                 \
+            //                  H
+
+            var ret = new Graph();
+            var a = new Node("A");
+            var b = new Node("B");
+            var c = new Node("C");
+            var d = new Node("D");
+            var e = new Node("E");
+            var f = new Node("F");
+            var g = new Node("G");
+            var h = new Node("H");
+
+            Connect(a, b, e);
+            Connect(b, c, d);
+            Connect(e, f, g);
+            Connect(g, h);
+
+            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g, h });
+
+            return ret;
+        }
+
+        public Graph GetSimpleTree()
+        {
+            //             A  
+            //         /       \ 
+            //        B         F
+            //      / | \      / \
+            //     C  D   E   G   H
+            //   / | \    |     / | \
+            //  I  J  K   L    M  N  O
+
+            var ret = new Graph();
+            var a = new Node("A");
+            var b = new Node("B");
+            var c = new Node("C");
+            var d = new Node("D");
+            var e = new Node("E");
+            var f = new Node("F");
+            var g = new Node("G");
+            var h = new Node("H");
+            var i = new Node("I");
+            var j = new Node("J");
+            var k = new Node("K");
+            var l = new Node("L");
+            var m = new Node("M");
+            var n = new Node("N");
+            var o = new Node("O");
+
+            Connect(a, b, f);
+            Connect(b, c, d, e);
+
+            Connect(f, g, h);
+            Connect(c, i, j, k);
+
+            Connect(e, l);
+            Connect(h, m, n, o);
+
+            ret.Nodes.AddRange(new Node[] { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o });
+
+            return ret;
+        }
+
+        public Graph GetSimpleCyclical()
         {
             //          A   F
             //         / \ /
@@ -58,34 +136,50 @@ namespace Graphs
             //       /\    
             //      D--E    
 
-            Graph ret = new Graph();
-            Node a = new Node("A");
-            Node b = new Node("B");
-            Node c = new Node("C");
-            Node d = new Node("D");
-            Node e = new Node("E");
-            Node f = new Node("F");
-            Node g = new Node("G");
+            var ret = new Graph();
+            var a = new Node("A");
+            var b = new Node("B");
+            var c = new Node("C");
+            var d = new Node("D");
+            var e = new Node("E");
+            var f = new Node("F");
+            var g = new Node("G");
 
-            Connect(a, b);
-            Connect(a, c);
-            Connect(b, c);
-            Connect(b, d);
-            Connect(b, e);
-            Connect(d, e);
-            Connect(c, f);
-            Connect(c, g);
-
-            ret.Nodes.AddRange(new Node[] { a, b, c, d, e, f, g });
+            Connect(a, b, c);
+            Connect(b, a, c, e, d);
+            Connect(c, f, g);
+ 
+            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g });
 
             return ret;
         }
 
-        private bool Connect(Node a, Node b)
+        public Graph GetSimpleAcyclical()
         {
-            bool ret = a.ConnectTo(b);
-            if (!ret) throw new Exception(string.Format("Nodes {0} and {1} already connected!", a, b));
+            //          A   F
+            //         / \ /
+            //        B   C---G
+            //       /\    
+            //      D  E    
+
+            var ret = new Graph();
+            var a = new Node("A");
+            var b = new Node("B");
+            var c = new Node("C");
+            var d = new Node("D");
+            var e = new Node("E");
+            var f = new Node("F");
+            var g = new Node("G");
+
+            Connect(a, b, c);
+            Connect(b, d, e);
+            Connect(c, f, g);
+
+            ret.Nodes.AddRange(new[] { a, b, c, d, e, f, g });
+
             return ret;
         }
+
+        #endregion
     }
 }
