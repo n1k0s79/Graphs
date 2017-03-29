@@ -1,7 +1,0 @@
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\obj\Debug\Graphs.Tests.csprojResolveAssemblyReference.cache
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\bin\Debug\Graphs.Tests.dll
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\bin\Debug\Graphs.Tests.pdb
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\bin\Debug\Graphs.dll
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\bin\Debug\Graphs.pdb
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\obj\Debug\Graphs.Tests.dll
-C:\Users\sandalidis\Documents\GitHub\Graphs\Graphs.Tests\obj\Debug\Graphs.Tests.pdb
