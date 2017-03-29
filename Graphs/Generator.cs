@@ -43,10 +43,11 @@ namespace Graphs
         {
             while (n.ConnectedNodes.Count < numberOfConnections)
             {
-                Node r = graph.GetRandomNode();
-                if (r.Equals(n)) continue;
+                var uncongestedNodes = graph.Nodes.Where(node => node.ConnectedNodes.Count < numberOfConnections && !node.Equals(n)).ToList();
+                var index = rnd.Next(uncongestedNodes.Count);
+                var other = graph.Nodes[index];
                 int weight = rnd.Next(0, 10);
-                n.ConnectTo(r, weight);
+                n.ConnectTo(other, weight);
             }
         }
 
@@ -68,21 +69,11 @@ namespace Graphs
             //                  H
 
             var ret = new Graph();
-            var a = new Node("A");
-            var b = new Node("B");
-            var c = new Node("C");
-            var d = new Node("D");
-            var e = new Node("E");
-            var f = new Node("F");
-            var g = new Node("G");
-            var h = new Node("H");
 
-            Connect(a, b, e);
-            Connect(b, c, d);
-            Connect(e, f, g);
-            Connect(g, h);
-
-            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g, h });
+            Connect(A, B, E);
+            Connect(B, C, D);
+            Connect(E, F, G);
+            Connect(G, H);
 
             return ret;
         }
@@ -98,32 +89,15 @@ namespace Graphs
             //  I  J  K   L    M  N  O
 
             var ret = new Graph();
-            var a = new Node("A");
-            var b = new Node("B");
-            var c = new Node("C");
-            var d = new Node("D");
-            var e = new Node("E");
-            var f = new Node("F");
-            var g = new Node("G");
-            var h = new Node("H");
-            var i = new Node("I");
-            var j = new Node("J");
-            var k = new Node("K");
-            var l = new Node("L");
-            var m = new Node("M");
-            var n = new Node("N");
-            var o = new Node("O");
 
-            Connect(a, b, f);
-            Connect(b, c, d, e);
+            Connect(A, B, F);
+            Connect(B, C, D, E);
 
-            Connect(f, g, h);
-            Connect(c, i, j, k);
+            Connect(F, G, H);
+            Connect(C, I, J, K);
 
-            Connect(e, l);
-            Connect(h, m, n, o);
-
-            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o });
+            Connect(E, L);
+            Connect(H, M, N, O);
 
             return ret;
         }
@@ -137,20 +111,11 @@ namespace Graphs
             //      D--E    
 
             var ret = new Graph();
-            var a = new Node("A");
-            var b = new Node("B");
-            var c = new Node("C");
-            var d = new Node("D");
-            var e = new Node("E");
-            var f = new Node("F");
-            var g = new Node("G");
-
-            Connect(a, b, c);
-            Connect(b, a, c, e, d);
-            Connect(c, f, g);
  
-            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g });
-
+            Connect(A, B, C);
+            Connect(B, A, C, E, D);
+            Connect(C, F, G);
+ 
             return ret;
         }
 
