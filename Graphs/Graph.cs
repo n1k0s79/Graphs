@@ -4,15 +4,17 @@ using System.Diagnostics;
 
 namespace Graphs
 {
-    [DebuggerDisplay("A graph with {Nodes.Count} nodes")]
+    [DebuggerDisplay("A graph with {Nodes.Count} nodes and {Edges.Count} edges")]
     public class Graph
     {
         // a graph is nothing more than a collection of nodes
         public readonly List<Node> Nodes;
+        public readonly List<Edge> Edges;
         
         public Graph()
         {
             this.Nodes = new List<Node>();
+            this.Edges = new List<Edge>();
         }
 
         public List<Node> Traverse(Node root, ITraversalAlgorithm algorithm)

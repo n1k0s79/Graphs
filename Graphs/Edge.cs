@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Graphs
+﻿namespace Graphs
 {
     public class Edge
     {
@@ -20,6 +18,11 @@ namespace Graphs
         public Node Other(Node node)
         {
             return this.From.Equals(node) ? this.To : this.From;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{1}{2}", this.From, this.Bidirectional ? "<->" : "->", this.To);
         }
     }
 }

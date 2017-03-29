@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Graphs
 {
@@ -6,40 +8,42 @@ namespace Graphs
     {
         private static Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
+        public Graph graph { get; private set; }
+
         /// <summary> Generates a graph  </summary>
         /// <param name="numberOfNodes"> The number of nodes</param>
         /// <param name="density"> The percent of other nodes a node is connected to </param>
         public Graph Generate(int numberOfNodes = 50, int density = 20)
         {
-            var ret = new Graph();
-            AddNodes(ret, numberOfNodes);
-            ConnectNodes(ret, density);
-            return ret;
+            graph = new Graph();
+            AddNodes(numberOfNodes);
+            ConnectNodes(density);
+            return graph;
         }
 
         /// <summary> Adds nodes to the graph </summary>
-        private void AddNodes(Graph g, int numberOfNodes)
+        private void AddNodes(int numberOfNodes)
         {
             for (var i = 0; i < numberOfNodes; i++)
             {
                 var n = new Node(i.ToString());
-                g.Nodes.Add(n);
+                graph.Nodes.Add(n);
             }
         }
 
         /// <summary> Randomly connects the nodes in the graph to </summary>
-        private void ConnectNodes(Graph g, int density = 20)
+        private void ConnectNodes(int density = 20)
         {
-            int connections = g.Nodes.Count * density / 100;
+            int connections = graph.Nodes.Count * density / 100;
 
-            foreach (var node in g.Nodes) AddRandomConnections(g, node, connections);
+            foreach (var node in graph.Nodes) AddRandomConnections(node, connections);
         }
 
-        private void AddRandomConnections(Graph g, Node n, int numberOfConnections)
+        private void AddRandomConnections(Node n, int numberOfConnections)
         {
             while (n.ConnectedNodes.Count < numberOfConnections)
             {
-                Node r = g.GetRandomNode();
+                Node r = graph.GetRandomNode();
                 if (r.Equals(n)) continue;
                 int weight = rnd.Next(0, 10);
                 n.ConnectTo(r, weight);
@@ -48,11 +52,7 @@ namespace Graphs
 
         private void Connect(Node a, params Node[] other)
         {
-            foreach (var o in other)
-            {
-                if (a.IsConnectedTo(o)) throw new Exception(string.Format("Nodes {0} and {1} already connected!", a, o));
-                a.ConnectTo(o);
-            }
+            foreach (var o in other) graph.Edges.Add(a.ConnectTo(o));
         }
 
         #region Simple graphs
@@ -123,7 +123,7 @@ namespace Graphs
             Connect(e, l);
             Connect(h, m, n, o);
 
-            ret.Nodes.AddRange(new Node[] { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o });
+            ret.Nodes.AddRange(new [] { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o });
 
             return ret;
         }
@@ -162,22 +162,105 @@ namespace Graphs
             //       /\    
             //      D  E    
 
-            var ret = new Graph();
-            var a = new Node("A");
-            var b = new Node("B");
-            var c = new Node("C");
-            var d = new Node("D");
-            var e = new Node("E");
-            var f = new Node("F");
-            var g = new Node("G");
+            graph = new Graph();
 
-            Connect(a, b, c);
-            Connect(b, d, e);
-            Connect(c, f, g);
+            Connect(A, B, C);
+            Connect(B, D, E);
+            Connect(C, F, G);
 
-            ret.Nodes.AddRange(new[] { a, b, c, d, e, f, g });
+            return graph;
+        }
+
+        private Node GetAddNode(string nodeName)
+        {
+            var ret = graph.Nodes.FirstOrDefault(x => x.Name == nodeName);
+            if (ret == null)
+            {
+                ret = new Node(nodeName);
+                graph.Nodes.Add(ret);
+            }
 
             return ret;
+        }
+
+        private Node A
+        {
+            get { return GetAddNode("A"); }
+        }
+
+        private Node B
+        {
+            get { return GetAddNode("B"); }
+        }
+
+        private Node C
+        {
+            get { return GetAddNode("C"); }
+        }
+
+        private Node D
+        {
+            get { return GetAddNode("D"); }
+        }
+
+        private Node E
+        {
+            get { return GetAddNode("E"); }
+        }
+
+        private Node F
+        {
+            get { return GetAddNode("F"); }
+        }
+
+        private Node G
+        {
+            get { return GetAddNode("G"); }
+        }
+
+        private Node H
+        {
+            get { return GetAddNode("H"); }
+        }
+
+        private Node I
+        {
+            get { return GetAddNode("I"); }
+        }
+
+        private Node J
+        {
+            get { return GetAddNode("J"); }
+        }
+
+        private Node K
+        {
+            get { return GetAddNode("K"); }
+        }
+
+        private Node L
+        {
+            get { return GetAddNode("L"); }
+        }
+
+        private Node M
+        {
+            get { return GetAddNode("M"); }
+        }
+
+        private Node N
+        {
+            get { return GetAddNode("N"); }
+        }
+
+        private Node O
+        {
+            get { return GetAddNode("O"); }
+        }
+
+        private Node P
+        {
+            get { return GetAddNode("Q"); }
         }
 
         #endregion

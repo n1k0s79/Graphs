@@ -19,18 +19,24 @@ namespace Graphs
             this.AdjacentEdges = new List<Edge>();
         }
 
-        public bool ConnectTo(Node other, double? weight = 0, bool bidirectional = true)
+        public Edge ConnectTo(Node other, double? weight = 0, bool bidirectional = true)
         {
-            if (this.IsConnectedTo(other)) return false;
-            var edge = new Edge(this, other, bidirectional, weight);
-            this.AdjacentEdges.Add(edge);
-            if (bidirectional) other.AdjacentEdges.Add(edge);
-            return true;
+            var connection = this.GetConnection(other);
+            if (connection != null) return connection;
+            connection = new Edge(this, other, bidirectional, weight);
+            this.AdjacentEdges.Add(connection);
+            if (bidirectional) other.AdjacentEdges.Add(connection);
+            return connection;
         }
 
         public ICollection<Node> ConnectedNodes
         {
             get { return this.AdjacentEdges.Select(e => e.Other(this)).ToList(); }
+        }
+
+        public Edge GetConnection(Node other)
+        {
+            return this.AdjacentEdges.FirstOrDefault(x => x.Other(this).Equals(other));
         }
 
         public bool IsConnectedTo(Node other)

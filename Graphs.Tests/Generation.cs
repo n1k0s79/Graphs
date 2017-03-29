@@ -12,8 +12,8 @@ namespace Graphs.Tests
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var generator = new Graphs.Generator();
-            var graph = generator.Generate();
+            var generator = new Generator();
+            var graph = generator.GetSimpleAcyclical();
             double elapsed = sw.Elapsed.TotalMilliseconds;
             string s = elapsed.ToString();
         }

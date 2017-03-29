@@ -19,18 +19,36 @@ namespace Graphs.Tests
         public void BreadthFirstTraversalOfSimpleTree()
         {
             var generator = new Generator();
-            Graph g = generator.GetSimpleBinaryTree();
+            Graph g = generator.GetSimpleTree();
             List<Node> path = g.Traverse(g.Nodes[0], new BreadthFirstTraversal());
-            Assert.AreEqual("ABECDFGH", path.AsString());
+            Assert.AreEqual("ABFCDEGHIJKLMNO", path.AsString());
         }
 
         [TestMethod]
         public void DepthFirstTraversalOfSimpleTree()
         {
             var generator = new Generator();
+            Graph g = generator.GetSimpleTree();
+            List<Node> path = g.Traverse(g.Nodes[0], new DepthFirstTraversal());
+            Assert.AreEqual("ABCIJKDELFGHMNO", path.AsString());
+        }
+
+        [TestMethod]
+        public void DepthFirstTraversalOfSimpleBinaryTree()
+        {
+            var generator = new Generator();
             Graph g = generator.GetSimpleBinaryTree();
             List<Node> path = g.Traverse(g.Nodes[0], new DepthFirstTraversal());
             Assert.AreEqual("ABCDEFGH", path.AsString());
+        }
+
+        [TestMethod]
+        public void BreadthFirstTraversalOfSimpleBinaryTree()
+        {
+            var generator = new Generator();
+            Graph g = generator.GetSimpleBinaryTree();
+            List<Node> path = g.Traverse(g.Nodes[0], new BreadthFirstTraversal());
+            Assert.AreEqual("ABECDFGH", path.AsString());
         }
     }
 }
