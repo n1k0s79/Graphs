@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DFS.cs" />
+    <Compile Include="DepthFirstTraversal.cs" />
     <Compile Include="Edge.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="ITraversalAlgorithm.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
