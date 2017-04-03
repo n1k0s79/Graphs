@@ -13,11 +13,11 @@ namespace Graphs
         /// <summary> Generates a graph  </summary>
         /// <param name="numberOfNodes"> The number of nodes</param>
         /// <param name="density"> The percent of other nodes a node is connected to </param>
-        public Graph Generate(int numberOfNodes = 50, int density = 20)
+        public Graph Generate(int numberOfNodes = 50, int connectionsPerNode = 5)
         {
             graph = new Graph();
             AddNodes(numberOfNodes);
-            ConnectNodes(density);
+            ConnectNodes(connectionsPerNode);
             return graph;
         }
 
@@ -31,24 +31,39 @@ namespace Graphs
             }
         }
 
-        /// <summary> Randomly connects the nodes in the graph to </summary>
-        private void ConnectNodes(int density = 20)
+        /// <summary> Randomly connects the nodes in the graph to other nodes</summary>
+        private void ConnectNodes(int connectionsPerNode)
         {
-            int connections = graph.Nodes.Count * density / 100;
-
-            foreach (var node in graph.Nodes) AddRandomConnections(node, connections);
+            foreach (var node in graph.Nodes) graph.Edges.AddRange(AddRandomConnections(node, connectionsPerNode));
         }
 
-        private void AddRandomConnections(Node n, int numberOfConnections)
+        private List<Edge> AddRandomConnections(Node n, int numberOfConnections)
         {
+            var ret = new List<Edge>();
             while (n.ConnectedNodes.Count < numberOfConnections)
             {
                 var uncongestedNodes = graph.Nodes.Where(node => node.ConnectedNodes.Count < numberOfConnections && !node.Equals(n)).ToList();
                 var index = rnd.Next(uncongestedNodes.Count);
-                var other = graph.Nodes[index];
+                var other = uncongestedNodes[index];
                 int weight = rnd.Next(0, 10);
-                n.ConnectTo(other, weight);
+                while (other.IsConnectedTo(n))
+                {
+                    index = rnd.Next(uncongestedNodes.Count);
+                    other = graph.Nodes[index];
+                }
+
+                var edge = new Edge(n, other, true, weight);
+                n.AdjacentEdges.Add(edge);
+                other.AdjacentEdges.Add(edge);
+                ret.Add(edge);
             }
+
+            return ret;
+        }
+
+        private List<Edge> GetAllPossibleEdges(Graph g)
+        {
+            
         }
 
         private void Connect(Node a, params Node[] other)
@@ -88,7 +103,7 @@ namespace Graphs
             //   / | \    |     / | \
             //  I  J  K   L    M  N  O
 
-            var ret = new Graph();
+            this.graph = new Graph();
 
             Connect(A, B, F);
             Connect(B, C, D, E);
@@ -99,7 +114,7 @@ namespace Graphs
             Connect(E, L);
             Connect(H, M, N, O);
 
-            return ret;
+            return graph;
         }
 
         public Graph GetSimpleCyclical()
@@ -110,13 +125,13 @@ namespace Graphs
             //       /\    
             //      D--E    
 
-            var ret = new Graph();
+            this.graph = new Graph();
  
             Connect(A, B, C);
             Connect(B, A, C, E, D);
             Connect(C, F, G);
  
-            return ret;
+            return graph;
         }
 
         public Graph GetSimpleAcyclical()
@@ -136,96 +151,89 @@ namespace Graphs
             return graph;
         }
 
-        private Node GetAddNode(string nodeName)
-        {
-            var ret = graph.Nodes.FirstOrDefault(x => x.Name == nodeName);
-            if (ret == null)
-            {
-                ret = new Node(nodeName);
-                graph.Nodes.Add(ret);
-            }
-
-            return ret;
-        }
-
         private Node A
         {
-            get { return GetAddNode("A"); }
+            get { return graph.GetAddNode("A"); }
         }
 
         private Node B
         {
-            get { return GetAddNode("B"); }
+            get { return graph.GetAddNode("B"); }
         }
 
         private Node C
         {
-            get { return GetAddNode("C"); }
+            get { return graph.GetAddNode("C"); }
         }
 
         private Node D
         {
-            get { return GetAddNode("D"); }
+            get { return graph.GetAddNode("D"); }
         }
 
         private Node E
         {
-            get { return GetAddNode("E"); }
+            get { return graph.GetAddNode("E"); }
         }
 
         private Node F
         {
-            get { return GetAddNode("F"); }
+            get { return graph.GetAddNode("F"); }
         }
 
         private Node G
         {
-            get { return GetAddNode("G"); }
+            get { return graph.GetAddNode("G"); }
         }
 
         private Node H
         {
-            get { return GetAddNode("H"); }
+            get { return graph.GetAddNode("H"); }
         }
 
         private Node I
         {
-            get { return GetAddNode("I"); }
+            get { return graph.GetAddNode("I"); }
         }
 
         private Node J
         {
-            get { return GetAddNode("J"); }
+            get { return graph.GetAddNode("J"); }
         }
 
         private Node K
         {
-            get { return GetAddNode("K"); }
+            get { return graph.GetAddNode("K"); }
         }
 
         private Node L
         {
-            get { return GetAddNode("L"); }
+            get { return graph.GetAddNode("L"); }
         }
 
         private Node M
         {
-            get { return GetAddNode("M"); }
+            get { return graph.GetAddNode("M"); }
         }
 
         private Node N
         {
-            get { return GetAddNode("N"); }
+            get { return graph.GetAddNode("N"); }
         }
 
         private Node O
         {
-            get { return GetAddNode("O"); }
+            get { return graph.GetAddNode("O"); }
         }
 
         private Node P
         {
-            get { return GetAddNode("Q"); }
+            get { return graph.GetAddNode("P"); }
+        }
+
+        private Node Q
+        {
+            get { return graph.GetAddNode("Q"); }
         }
 
         #endregion

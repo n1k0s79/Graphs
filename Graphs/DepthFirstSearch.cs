@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Graphs
 {
@@ -8,46 +9,30 @@ namespace Graphs
         private List<Node> exploredNodes = new List<Node>();
         private Node target;
 
-        public List<Node> Traverse(Node root)
+        public bool Search(Node start, Node target, out List<Node> path)
         {
-            exploredEdges = new Dictionary<Edge,bool>();
-            exploredNodes = new List<Node>();
-            InnerTraverse(root);
-            return exploredNodes;
-        }
-
-        private void InnerTraverse(Node node)
-        {
-            if (!exploredNodes.Contains(node)) exploredNodes.Add(node);
-            foreach (var edge in node.AdjacentEdges)
-            {
-                if (exploredEdges.ContainsKey(edge) && exploredEdges[edge]) continue;
-                exploredEdges[edge] = true;
-                InnerTraverse(edge.Other(node));
-            }
-        }
-
-        public bool Search(Node start, Node target, ref List<Node> path)
-        {
-            if (!exploredNodes.Contains(node)) exploredNodes.Add(node);
-            foreach (var edge in node.AdjacentEdges)
-            {
-                if (exploredEdges.ContainsKey(edge) && exploredEdges[edge]) continue;
-                exploredEdges[edge] = true;
-                InnerTraverse(edge.Other(node));
-            }
+            this.target = target;
+            var ret = this.InnerSearch(start);
+            path = exploredNodes;
+            return ret;
         }
 
         public bool InnerSearch(Node node)
         {
-            if (node.Equals(target)) return true;
+            if (node.Equals(target))
+            {
+                exploredNodes.Add(node);
+                return true;
+            }
+
             if (!exploredNodes.Contains(node)) exploredNodes.Add(node);
             foreach (var edge in node.AdjacentEdges)
             {
                 if (exploredEdges.ContainsKey(edge) && exploredEdges[edge]) continue;
                 exploredEdges[edge] = true;
-                InnerSearch(edge.Other(node));
+                if (InnerSearch(edge.Other(node))) return true;
             }
+            return false;
         }
     }
 }

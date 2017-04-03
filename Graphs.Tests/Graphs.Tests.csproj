@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Equality.cs" />
     <Compile Include="Generation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="Traversal.cs" />
   </ItemGroup>
   <ItemGroup>

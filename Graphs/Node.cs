@@ -48,5 +48,23 @@ namespace Graphs
         {
             return this.Name;
         }
+
+        public static bool operator ==(Node x, Node y)
+        {
+            bool xIsNull = ((object) x == null);
+            bool yIsNull = ((object)y == null);
+            if (xIsNull && yIsNull) return true;
+            if (xIsNull || yIsNull) return false;
+            return x.Name == y.Name;
+        }
+
+        public static bool operator !=(Node x, Node y)
+        {
+            bool xIsNull = ((object)x == null);
+            bool yIsNull = ((object)y == null);
+            if (xIsNull && yIsNull) return false;
+            if (xIsNull || yIsNull) return true;
+            return x.Name != y.Name;
+        }
     }
 }

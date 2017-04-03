@@ -17,5 +17,14 @@ namespace Graphs.Tests
             double elapsed = sw.Elapsed.TotalMilliseconds;
             string s = elapsed.ToString();
         }
+
+        [TestMethod]
+        public void Serialize()
+        {
+            var generator = new Generator();
+            var graph = generator.Generate(5, 2);
+            var serializer = new Serializer();
+            var s = serializer.Serialize(graph);
+        }
     }
 }
