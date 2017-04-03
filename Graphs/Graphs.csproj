@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreadthFirstTraversal.cs" />
+    <Compile Include="DepthFirstSearch.cs" />
     <Compile Include="DepthFirstTraversal.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Generator.cs" />

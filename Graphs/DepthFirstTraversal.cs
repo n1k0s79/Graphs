@@ -20,7 +20,7 @@ namespace Graphs
             if (!exploredNodes.Contains(node)) exploredNodes.Add(node);
             foreach (var edge in node.AdjacentEdges)
             {
-                if (exploredEdges.ContainsKey(edge) && exploredEdges[edge]) continue;
+                if (exploredEdges.ContainsKey(edge) && exploredEdges[edge]) continue; // to handle cyclical graphs
                 exploredEdges[edge] = true;
                 InnerTraverse(edge.Other(node));
             }
