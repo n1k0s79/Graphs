@@ -18,13 +18,26 @@ namespace Graphs.Tests
             string s = elapsed.ToString();
         }
 
+        //[TestMethod]
+        //public void Serialize()
+        //{
+        //    var generator = new Generator();
+        //    var graph = generator.Generate(100, 0.8f);
+        //    var serializer = new Serializer();
+        //    var s = serializer.Serialize(graph);
+        //}
+
         [TestMethod]
-        public void Serialize()
+        public void MaxPossibleNodes()
         {
-            var generator = new Generator();
-            var graph = generator.Generate(5, 2);
-            var serializer = new Serializer();
-            var s = serializer.Serialize(graph);
+            var graph = new Graph(10);
+            Assert.AreEqual(45, graph.MaxPossibleEdges);
+
+            graph = new Graph(5);
+            Assert.AreEqual(10, graph.MaxPossibleEdges);
+
+            graph = new Graph(100);
+            Assert.AreEqual(4950, graph.MaxPossibleEdges);
         }
     }
 }

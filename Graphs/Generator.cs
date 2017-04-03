@@ -13,58 +13,93 @@ namespace Graphs
         /// <summary> Generates a graph  </summary>
         /// <param name="numberOfNodes"> The number of nodes</param>
         /// <param name="density"> The percent of other nodes a node is connected to </param>
-        public Graph Generate(int numberOfNodes = 50, int connectionsPerNode = 5)
+        public Graph Generate(int numberOfNodes = 50, float density = 0.3f)
         {
             graph = new Graph();
             AddNodes(numberOfNodes);
-            ConnectNodes(connectionsPerNode);
+            RandomlyConnectNodes(density);
             return graph;
         }
 
         /// <summary> Adds nodes to the graph </summary>
         private void AddNodes(int numberOfNodes)
         {
-            for (var i = 0; i < numberOfNodes; i++)
-            {
-                var n = new Node(i.ToString());
-                graph.Nodes.Add(n);
-            }
+            for (var i = 0; i < numberOfNodes; i++) graph.Nodes.Add(new Node(i.ToString()));
         }
 
         /// <summary> Randomly connects the nodes in the graph to other nodes</summary>
-        private void ConnectNodes(int connectionsPerNode)
+        private void RandomlyConnectNodes(float density)
         {
-            foreach (var node in graph.Nodes) graph.Edges.AddRange(AddRandomConnections(node, connectionsPerNode));
+            int n = (int) (graph.MaxPossibleEdges*density);
+            var indexCombinations = GetIndexCombinations2(graph.Nodes.Count);
+            while (this.graph.Edges.Count < n)
+            {
+                var index = rnd.Next(indexCombinations.Count);
+                var comb = indexCombinations[index];
+                var nodeA = this.graph.Nodes[comb[0]];
+                var nodeB = this.graph.Nodes[comb[1]];
+                this.graph.Edges.Add(nodeA.ConnectTo(nodeB));
+                indexCombinations.RemoveAt(index);
+            }
         }
 
-        private List<Edge> AddRandomConnections(Node n, int numberOfConnections)
+        private List<int[]> GetIndexCombinations2(int count)
         {
-            var ret = new List<Edge>();
-            while (n.ConnectedNodes.Count < numberOfConnections)
-            {
-                var uncongestedNodes = graph.Nodes.Where(node => node.ConnectedNodes.Count < numberOfConnections && !node.Equals(n)).ToList();
-                var index = rnd.Next(uncongestedNodes.Count);
-                var other = uncongestedNodes[index];
-                int weight = rnd.Next(0, 10);
-                while (other.IsConnectedTo(n))
-                {
-                    index = rnd.Next(uncongestedNodes.Count);
-                    other = graph.Nodes[index];
-                }
+            var ret = new List<int[]>();
 
-                var edge = new Edge(n, other, true, weight);
-                n.AdjacentEdges.Add(edge);
-                other.AdjacentEdges.Add(edge);
-                ret.Add(edge);
+            for (int i = 0; i < count; i++)
+            {
+                for (int j = i + 1; j < count; j++)
+                {
+                    ret.Add(new[] {i, j});
+                }
             }
 
             return ret;
         }
 
-        private List<Edge> GetAllPossibleEdges(Graph g)
-        {
-            
-        }
+        //private List<Edge> AddRandomConnections(Node n, int numberOfConnections)
+        //{
+        //    var ret = new List<Edge>();
+        //    while (n.ConnectedNodes.Count < numberOfConnections)
+        //    {
+        //        var uncongestedNodes = graph.Nodes.Where(node => node.ConnectedNodes.Count < numberOfConnections && !node.Equals(n)).ToList();
+        //        var index = rnd.Next(uncongestedNodes.Count);
+        //        var other = uncongestedNodes[index];
+        //        int weight = rnd.Next(0, 10);
+        //        while (other.IsConnectedTo(n))
+        //        {
+        //            index = rnd.Next(uncongestedNodes.Count);
+        //            other = graph.Nodes[index];
+        //        }
+
+        //        var edge = new Edge(n, other, true, weight);
+        //        n.AdjacentEdges.Add(edge);
+        //        other.AdjacentEdges.Add(edge);
+        //        ret.Add(edge);
+        //    }
+
+        //    return ret;
+        //}
+
+        //private List<Edge> GetAllPossibleEdges(Graph g)
+        //{
+        //    var set = new HashSet<int>();
+
+        //    for (int i = 0; i < g.Nodes.Count; i++)
+        //    {
+        //        for (int j = 0; j < g.Nodes.Count; j++)
+        //        {
+        //            if (i == j) continue;
+        //            string edgeCode = i.ToString() + j.ToString();
+
+        //            Node a = g.Nodes[i];
+        //            Node b = g.Nodes[j];
+
+        //        }
+        //    }
+        //    return ret;
+        //}
 
         private void Connect(Node a, params Node[] other)
         {

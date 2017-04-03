@@ -18,6 +18,17 @@ namespace Graphs
             this.Edges = new List<Edge>();
         }
 
+        public Graph(int nrOfNodes)
+        {
+            this.Nodes = new List<Node>();
+            this.Edges = new List<Edge>();
+
+            for (int i = 0; i < nrOfNodes; i++)
+            {
+                this.Nodes.Add(new Node(i.ToString()));
+            }
+        }
+
         public List<Node> Traverse(Node root, ITraversalAlgorithm algorithm)
         {
             return algorithm.Traverse(root);
@@ -49,6 +60,35 @@ namespace Graphs
             if (ret != null) return ret;
             ret = new Node(nodeName);
             this.Nodes.Add(ret);
+            return ret;
+        }
+
+        public long MaxPossibleEdges
+        {
+            get
+            {
+                return (this.Nodes.Count - 1)*(this.Nodes.Count) /2 ;
+                //for (int i = 0; i < 100; i++)
+                //{
+                //    var f = this.Factorial(i);
+                //    if (f < 0)
+                //    {
+                //        int k = 1;
+                //    }
+                //}
+
+                //var a = this.Factorial(this.Nodes.Count);
+                //var b = this.Factorial(this.Nodes.Count - 2);
+                //long ret = a/(2*b);
+                //return ret;
+            }
+        }
+
+        private long Factorial(int n)
+        {
+            long ret = n;
+            while (n > 1) ret *= --n;
+
             return ret;
         }
     }

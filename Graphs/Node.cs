@@ -36,12 +36,12 @@ namespace Graphs
 
         public Edge GetConnection(Node other)
         {
-            return this.AdjacentEdges.FirstOrDefault(x => x.Other(this).Equals(other));
+            return this.AdjacentEdges.FirstOrDefault(x => x.Other(this) == other);
         }
 
         public bool IsConnectedTo(Node other)
         {
-            return this.AdjacentEdges.Any(x => x.Other(this).Equals(other));
+            return this.AdjacentEdges.Any(x => x.Other(this) == other);
         }
 
         public override string ToString()

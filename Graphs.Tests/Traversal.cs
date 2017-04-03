@@ -50,5 +50,18 @@ namespace Graphs.Tests
             List<Node> path = g.Traverse(g.Nodes[0], new BreadthFirstTraversal());
             Assert.AreEqual("ABECDFGH", path.AsString());
         }
+
+        [TestMethod]
+        public void TraversalLarge()
+        {
+            var generator = new Generator();
+            for (int i = 0; i < 100; i++)
+            {
+                Graph g = generator.Generate(100, 0.8f);
+                Node a = g.GetRandomNode();
+                List<Node> path = g.Traverse(a, new BreadthFirstTraversal());
+                Assert.AreEqual(100, path.Count);
+            }
+        }
     }
 }
