@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphs", "Graphs\Graphs.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphs.Tests", "Graphs.Tests\Graphs.Tests.csproj", "{42DCA1C5-42D3-4A0F-A7F6-AD30CE897627}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees", "Trees\Trees.csproj", "{4205E39A-C71A-4073-91BE-FC5F67761EAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees.Tests", "Trees.Tests\Trees.Tests.csproj", "{9936D85A-C6DA-434D-A2FC-EFA94F0B573C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{42DCA1C5-42D3-4A0F-A7F6-AD30CE897627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42DCA1C5-42D3-4A0F-A7F6-AD30CE897627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DCA1C5-42D3-4A0F-A7F6-AD30CE897627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4205E39A-C71A-4073-91BE-FC5F67761EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4205E39A-C71A-4073-91BE-FC5F67761EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4205E39A-C71A-4073-91BE-FC5F67761EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4205E39A-C71A-4073-91BE-FC5F67761EAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9936D85A-C6DA-434D-A2FC-EFA94F0B573C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9936D85A-C6DA-434D-A2FC-EFA94F0B573C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9936D85A-C6DA-434D-A2FC-EFA94F0B573C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9936D85A-C6DA-434D-A2FC-EFA94F0B573C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
